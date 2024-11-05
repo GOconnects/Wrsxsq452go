@@ -153,19 +153,6 @@ range of countries. Contact us today for a quote">
         </div><br><br>
 
 <script type="text/javascript">
-  document.getElementById('contact-form').addEventListener('submit', function (e) {
-    e.preventDefault(); // Prevent page reload
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
-
     // Generate a random ticket code
     const timestamp = Date.now();  // Current timestamp
     const randomNum = Math.floor(1000 + Math.random() * 9000);  // Random 4-digit number
@@ -179,8 +166,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     // Submit the form
     event.target.submit();
-}
-
+  }
 </script>
     <footer>
         <p>&copy; Global Opportunity Connects. All Rights Reserved.</p>
