@@ -156,10 +156,6 @@ range of countries. Contact us today for a quote">
   document.getElementById('contact-form').addEventListener('submit', function (e) {
     e.preventDefault(); // Prevent page reload
 
-    alert('Thank you for reaching out! We will contact you soon.');
-    this.reset(); // Clear the form after submission
-});
-
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -168,8 +164,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
-function generateTicketCode(event) {
-    event.preventDefault();  // Prevents form from submitting immediately
+
 
     // Generate a random ticket code
     const timestamp = Date.now();  // Current timestamp
