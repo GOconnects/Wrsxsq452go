@@ -133,10 +133,41 @@ range of countries. Contact us today for a quote">
                 <label for="message">Your Message</label>
                 <textarea id="message" name="message" rows="5" placeholder="Tell us how we can help" required></textarea>
             </div>
-            <button type="submit" class="btn" value="Submit">Submit</button>
+            <input type="submit" class="btn" value="Submit">
         </form>
     </section>
-    <script>
+
+  
+
+
+ <div class="social-media">
+            <a href="https://www.facebook.com/profile.php?id=61566667643324" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+
+            <a href="https://youtube.com/@globaloppotuniityconnects" target="_blank"style="color:red;"><i class="fa-brands fa-youtube"></i></a>
+   
+         <a href="https://t.me/+Da9YKQdJTMkzMjU0" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+ 
+           <a href="https://www.linkedin.com/groups/10009324" target="_blank">
+<i class="fa-brands fa-linkedin">
+</i></a>
+        </div><br><br>
+
+<script type="text/javascript">
+  document.getElementById('contact-form').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent page reload
+
+    alert('Thank you for reaching out! We will contact you soon.');
+    this.reset(); // Clear the form after submission
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
 function generateTicketCode(event) {
     event.preventDefault();  // Prevents form from submitting immediately
 
@@ -154,37 +185,6 @@ function generateTicketCode(event) {
     // Submit the form
     event.target.submit();
 }
-</script>
-
-
- <div class="social-media">
-            <a href="https://www.facebook.com/profile.php?id=61566667643324" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-
-            <a href="https://youtube.com/@globaloppotuniityconnects" target="_blank"style="color:red;"><i class="fa-brands fa-youtube"></i></a>
-   
-         <a href="https://t.me/+Da9YKQdJTMkzMjU0" target="_blank"><i class="fa-brands fa-telegram"></i></a>
- 
-           <a href="https://www.linkedin.com/groups/10009324" target="_blank">
-<i class="fa-brands fa-linkedin">
-</i></a>
-        </div><br><br>
-
-<script type="text/javascript">document.getElementById('contact-form').addEventListener('submit', function (e) {
-    e.preventDefault(); // Prevent page reload
-
-    alert('Thank you for reaching out! We will contact you soon.');
-    this.reset(); // Clear the form after submission
-});
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
 
 </script>
     <footer>
