@@ -135,7 +135,7 @@ range of countries. Contact us today for a quote">
                 <label for="ticketCode">Ticket Code</label>
                 <input type="text" id="ticketCode" name="ticketCode" readonly placeholder="Click 'Generate Code'" required>
             </div>
-            <button type="button" class="generate-btn" onclick="generateTicketCode()">Generate Ticket Code</button>
+            <button type="button" class="generate-Btn" onclick="generateTicketCode()">Generate Ticket Code</button>
             <button type="submit" class="btn">submit</button>
         </form>
     </section>
@@ -157,6 +157,7 @@ range of countries. Contact us today for a quote">
 
 <script type="text/javascript">
     
+        
         const usedCodes = new Set();
 
         function generateTicketCode() {
@@ -183,6 +184,10 @@ range of countries. Contact us today for a quote">
             }
             alert('Form submitted with ticket code: ' + ticketCode);
             return true;
+        }
+
+        // Ensure the button triggers the function
+        document.getElementById('generateBtn').addEventListener('click', generateTicketCode);
 </script>
     <footer>
         <p>&copy; Global Opportunity Connects. All Rights Reserved.</p>
