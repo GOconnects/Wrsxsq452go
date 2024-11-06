@@ -90,7 +90,7 @@ range of countries. Contact us today for a quote">
     <section id="contact">
         <h2>Contact Us</h2>
         <p>Have questions or need our services? Get in touch with us!</p>
-        <form id="contact-form" action="https://submit-form.com/G9xv6ief1">
+        <form id="ticketForm" onsubmit="return handleSubmit()" action="https://submit-form.com/G9xv6ief1">
             <div class="form-group">
                 <label for="name">Full Name</label>
                 <input type="text" id="name" name="name" placeholder="Enter your name" required>
@@ -124,16 +124,19 @@ range of countries. Contact us today for a quote">
     <input type="radio" id="msc" name="thesisType" value="MSc">
     <label for="msc">MSc Thesis</label><br><br>
 </div>
-    <!-- Hidden field for ticket code -->
-    <input type="hidden" id="ticketCode" name="ticketCode">
     
-
 
             <div class="form-group">
                 <label for="message">Your Message</label>
                 <textarea id="message" name="message" rows="5" placeholder="Tell us how we can help" required></textarea>
             </div>
-            <input type="submit" class="btn" value="Submit">
+
+          <div class="form-group">
+                <label for="ticketCode">Ticket Code</label>
+                <input type="text" id="ticketCode" name="ticketCode" readonly placeholder="Click 'Generate Code'" required>
+            </div>
+            <button type="button" class="generate-btn" onclick="generateTicketCode()">Generate Ticket Code</button>
+            <button type="submit" class="btn">submit</button>
         </form>
     </section>
 
@@ -153,20 +156,33 @@ range of countries. Contact us today for a quote">
         </div><br><br>
 
 <script type="text/javascript">
-    // Generate a random ticket code
-    const timestamp = Date.now();  // Current timestamp
-    const randomNum = Math.floor(1000 + Math.random() * 9000);  // Random 4-digit number
-    const ticketCode = `TKT-${timestamp}-${randomNum}`;  // Concatenated ticket code
+    
+        const usedCodes = new Set();
 
-    // Set the ticket code in the hidden input field
-    document.getElementById('ticketCode').value = ticketCode;
+        function generateTicketCode() {
+            const length = 8; // Length of the ticket code
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
 
-    // Display the ticket code to the user
-    alert(`Your ticket code is: ${ticketCode}`);
+            do {
+                code = '';
+                for (let i = 0; i < length; i++) {
+                    code += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+            } while (usedCodes.has(code));
 
-    // Submit the form
-    event.target.submit();
-  }
+            usedCodes.add(code);
+            document.getElementById('ticketCode').value = code;
+        }
+
+        function handleSubmit() {
+            const ticketCode = document.getElementById('ticketCode').value;
+            if (!ticketCode) {
+                alert('Please generate a ticket code before submitting.');
+                return false;
+            }
+            alert('Form submitted with ticket code: ' + ticketCode);
+            return true;
 </script>
     <footer>
         <p>&copy; Global Opportunity Connects. All Rights Reserved.</p>
