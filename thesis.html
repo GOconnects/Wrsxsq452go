@@ -90,7 +90,7 @@ range of countries. Contact us today for a quote">
     <section id="contact">
         <h2>Contact Us</h2>
         <p>Have questions or need our services? Get in touch with us!</p>
-        <form id="ticketForm" onsubmit="return handleSubmit()" action="https://submit-form.com/G9xv6ief1">
+        <form id="contact-form" action="https://submit-form.com/G9xv6ief1"method="POST">
             <div class="form-group">
                 <label for="name">Full Name</label>
                 <input type="text" id="name" name="name" placeholder="Enter your name" required>
@@ -125,17 +125,16 @@ range of countries. Contact us today for a quote">
     <label for="msc">MSc Thesis</label><br><br>
 </div>
     
-
+<!-- Hidden field for ticket code -->
+            <input type="hidden" id="ticketCode" name="ticketCode">
+          
             <div class="form-group">
                 <label for="message">Your Message</label>
                 <textarea id="message" name="message" rows="5" placeholder="Tell us how we can help" required></textarea>
             </div>
 
-          <div class="form-group">
-                <label for="ticketCode">Ticket Code</label>
-                <input type="text" id="ticketCode" name="ticketCode" readonly placeholder="Click 'Generate Code'" required>
-            </div>
-            <button type="button" class="generate-Btn" onclick="generateTicketCode()">Generate Ticket Code</button>
+          
+         
             <button type="submit" class="btn">submit</button>
         </form>
     </section>
@@ -156,38 +155,48 @@ range of countries. Contact us today for a quote">
         </div><br><br>
 
 <script type="text/javascript">
-    
-        
-        const usedCodes = new Set();
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav').classList.toggle('active');
+        });
 
-        function generateTicketCode() {
-            const length = 8; // Length of the ticket code
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let code = '';
+        // Form Submission Handler with Ticket Code Generation
+        document.getElementById('contact-form').addEventListener('submit', handleFormSubmit);
 
-            do {
-                code = '';
-                for (let i = 0; i < length; i++) {
-                    code += characters.charAt(Math.floor(Math.random() * characters.length));
-                }
-            } while (usedCodes.has(code));
+        let isSubmitting = false; // Flag to prevent infinite loop
 
-            usedCodes.add(code);
-            document.getElementById('ticketCode').value = code;
-        }
-
-        function handleSubmit() {
-            const ticketCode = document.getElementById('ticketCode').value;
-            if (!ticketCode) {
-                alert('Please generate a ticket code before submitting.');
-                return false;
+        function handleFormSubmit(e) {
+            if (isSubmitting) {
+                return; // Allow the form to submit normally
             }
-            alert('Form submitted with ticket code: ' + ticketCode);
-            return true;
+
+            e.preventDefault(); // Prevent default submission
+
+            // Generate a unique ticket code
+            const timestamp = Date.now();
+            const randomNum = Math.floor(1000 + Math.random() * 9000);
+            const ticketCode = `TKT-${timestamp}-${randomNum}`;
+
+            // Set the ticket code in the hidden input
+            document.getElementById('ticketCode').value = ticketCode;
+
+            // Optionally, display the ticket code to the user
+            alert(`Thank you for reaching out! Your ticket code is: ${ticketCode}`);
+
+            isSubmitting = true; // Set the flag to allow form submission
+            this.submit(); // Submit the form programmatically
         }
 
-        // Ensure the button triggers the function
-        document.getElementById('generateBtn').addEventListener('click', generateTicketCode);
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+       
 </script>
     <footer>
         <p>&copy; Global Opportunity Connects. All Rights Reserved.</p>
