@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+
+    <style>
+        /* Overall page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header section with logo */
+        .header {
+            background-color: #1e3a8a; /* Dark blue background */
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 150px; /* Adjust logo size */
+            height: auto;
+        }
+
+        /* Form styling */
+        .payment-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-form label {
+            font-weight: bold;
+            color: #0284c7; /* Sky blue text */
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .payment-form select,
+        .payment-form input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #0284c7;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .payment-form input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #0284c7;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .payment-form input[type="submit"]:hover {
+            background-color: #0369a1;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 500px) {
+            .payment-form {
+                padding: 15px;
+            }
+            .payment-form input[type="submit"] {
+                font-size: 16px;
+            }
+        }
+    </style>
+
+    <!-- Include the PayPal SDK with your Client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id=Af7mLSCyW40Wiw5-BcQK2bSuCZgTZD6m_CJefSSt_QY__rhQWI-FCo0BP3g17_44QQusCzuh1WH7kfp4&components=buttons"></script>
+</head>
+<body>
+
+    <!-- Header with Logo -->
+    <div class="header">
+        <img src="https://i.ibb.co/H4FQVzP/logo-072826.png" alt="Logo">
+    </div>
+
+    <!-- Payment Form -->
+    <form class="payment-form" id="payment-form">
+        <!-- PayPal business account email -->
+        <input type="hidden" name="business" value="globalopportunityconnects@gmail.com">
+
+        <!-- Specify a Buy Now button -->
+        <input type="hidden" name="cmd" value="_xclick">
+
+        <!-- Item Name -->
+        <input type="hidden" name="item_name" value="Thesis or Thesis Guide Service">
+
+        <!-- Currency Code -->
+        <input type="hidden" name="currency_code" value="USD">
+
+        <!-- Dropdown Menu for Payment Options -->
+        <label for="paymentOption">Choose your payment option:</label>
+        <select name="amount" id="paymentOption" required>
+            <optgroup label="Thesis">
+                <option value="50.00">Thesis: $50 - Two Weeks Delivery</option>
+                <option value="30.00">Thesis: $30 - One Month Delivery</option>
+            </optgroup>
+            <optgroup label="Thesis Guide">
+                <option value="10.00">Thesis Guide: $10</option>
+                <option value="5.00">Thesis Guide: $5</option>
+            </optgroup>
+        </select>
+
+        <!-- Ticket Code Input -->
+        <label for="ticketCode">Enter your ticket code:</label>
+        <input type="text" id="ticketCode" name="ticketCode" placeholder="Paste your ticket code here" required>
+
+        <!-- PayPal Smart Payment Buttons will be rendered here -->
+        <div id="paypal-button-container"></div>
+
+        <!-- Submit button for form -->
+        <input type="submit" value="Submit Form">
+    </form>
+
+    <script>
+        // PayPal Smart Button Integration
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                // Capture the selected amount from the dropdown
+                var amount = document.getElementById("paymentOption").value;
+
+                // Create the order with the selected amount
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: amount
+                        },
+                        description: document.getElementById("paymentOption").selectedOptions[0].text
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                // Capture the payment after the buyer approves the transaction
+                return actions.order.capture().then(function(details) {
+                    alert('Payment completed by ' + details.payer.name.given_name);
+                    // Optionally, you can send data to your server for logging or confirmation
+                });
+            },
+            onCancel: function(data) {
+                alert('Payment was canceled');
+            },
+            onError: function(err) {
+                console.error('Error occurred during PayPal transaction', err);
+                alert('There was an issue with your payment, please try again later.');
+            }
+        }).render('#paypal-button-container'); // Render PayPal buttons inside the specified container
+    </script>
+
+</body>
+</html>
